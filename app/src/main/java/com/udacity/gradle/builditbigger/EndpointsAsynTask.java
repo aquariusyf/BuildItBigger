@@ -18,6 +18,12 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     private static MyApi myApiService = null;
     private Context context;
+    private OnEventListener<String> mCallBack;
+    private Exception mException;
+
+    public EndpointsAsyncTask(OnEventListener<String> callback) {
+        mCallBack = callback;
+    }
 
     @Override
     protected String doInBackground(Context... params) {
@@ -45,33 +51,24 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
         try {
             return myApiService.getJokeFromEndPoint().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            mException = e;
         }
+        return null;
     }
 
     @Override
     protected void onPostExecute(final String result) {
-        if(MainActivity.getIsFree()) {
-            MainActivity.setAdListener(new AdListener(){
-                @Override
-                public void onAdClosed() {
-                    if(context != null) {
-                        Intent intent = new Intent(context, ImageActivity.class);
-                        intent.putExtra(ImageActivity.JOKE_KEY, result);
-                        MainActivity.hideLoadingIndicator();
-                        context.startActivity(intent);
-                    }
-                    MainActivity.loadNewAd();
-                }
-            });
-            MainActivity.showAd();
-        } else {
-            if(context != null) {
-                Intent intent = new Intent(context, ImageActivity.class);
-                intent.putExtra(ImageActivity.JOKE_KEY, result);
-                MainActivity.hideLoadingIndicator();
-                context.startActivity(intent);
+        if(mCallBack != null) {
+            if(mException == null) {
+                mCallBack.onSuccess(result);
+            } else {
+                mCallBack.onFailure(mException);
             }
         }
+    }
+
+    public interface OnEventListener<T> {
+        void onSuccess(T object);
+        void onFailure(Exception e);
     }
 }

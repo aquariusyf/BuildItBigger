@@ -1,12 +1,15 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.android.imageactivity.ImageActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -58,17 +61,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void hideLoadingIndicator() {
-        mLoadingIndicator.setVisibility(View.GONE);
-    }
-
     public void tellJoke(View view) {
         mLoadingIndicator.setVisibility(View.VISIBLE);
-        new EndpointsAsyncTask().execute(this);
-    }
 
-    public static boolean getIsFree() {
-        return sIsFree;
+        EndpointsAsyncTask asyncTask =
+                new EndpointsAsyncTask(new EndpointsAsyncTask.OnEventListener<String>() {
+            @Override
+            public void onSuccess(final String result) {
+                if(sIsFree) {
+                    mInterstitialAd.setAdListener(new AdListener(){
+                        @Override
+                        public void onAdClosed() {
+                            Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+                            intent.putExtra(ImageActivity.JOKE_KEY, result);
+                            mLoadingIndicator.setVisibility(View.GONE);
+                            startActivity(intent);
+                            loadNewAd();
+                        }
+                    });
+                    mInterstitialAd.show();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+                    intent.putExtra(ImageActivity.JOKE_KEY, result);
+                    mLoadingIndicator.setVisibility(View.GONE);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+                mLoadingIndicator.setVisibility(View.GONE);
+            }
+        });
+        asyncTask.execute(this);
     }
 
     private void initInterstitialAd() {
@@ -77,21 +103,9 @@ public class MainActivity extends AppCompatActivity {
         loadNewAd();
     }
 
-    public static void loadNewAd() {
+    private static void loadNewAd() {
         mInterstitialAd.loadAd(new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
-    }
-
-    public static void showAd() {
-        if(mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
-    }
-
-    public static void setAdListener(AdListener listener) {
-        if(mInterstitialAd != null) {
-            mInterstitialAd.setAdListener(listener);
-        }
     }
 
 }
