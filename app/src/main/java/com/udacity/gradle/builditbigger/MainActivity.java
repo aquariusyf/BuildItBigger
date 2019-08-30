@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.android.imageactivity.ImageActivity;
 import com.google.android.gms.ads.AdListener;
@@ -90,11 +91,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
+                Toast.makeText(MainActivity.this, "Loading failed!!!", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
                 mLoadingIndicator.setVisibility(View.GONE);
             }
         });
-        asyncTask.execute(this);
+        asyncTask.execute();
     }
 
     private void initInterstitialAd() {

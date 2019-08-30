@@ -1,21 +1,21 @@
-Aug 30, 2019 2:08:33 PM com.google.appengine.tools.development.SystemPropertiesManager setSystemProperties
+Aug 30, 2019 3:08:09 PM com.google.appengine.tools.development.SystemPropertiesManager setSystemProperties
 INFO: Overwriting system property key 'java.util.logging.config.file', value 'D:\GoogleCloud\google-cloud-sdk\platform\google_appengine\google\appengine\tools\java\config\sdk\logging.properties' with value 'WEB-INF/logging.properties' from 'C:\Users\YF\Desktop\AndroidStudioProjects\Android Developer Nanodegree\BuildItBigger\backend\build\exploded-backend\WEB-INF\appengine-web.xml'
-2019-08-30 14:08:34.133:INFO::main: Logging initialized @5242ms to org.eclipse.jetty.util.log.StdErrLog
-2019-08-30 14:08:34.178:WARN:oejs.AbstractConnector:main: Ignoring deprecated socket close linger time
-Aug 30, 2019 9:08:34 PM com.google.appengine.tools.development.IsolatedAppClassLoader checkWorkingDirectory
+2019-08-30 15:08:09.154:INFO::main: Logging initialized @399ms to org.eclipse.jetty.util.log.StdErrLog
+2019-08-30 15:08:09.202:WARN:oejs.AbstractConnector:main: Ignoring deprecated socket close linger time
+Aug 30, 2019 10:08:09 PM com.google.appengine.tools.development.IsolatedAppClassLoader checkWorkingDirectory
 WARNING: Your working directory, (C:\Users\YF\Desktop\AndroidStudioProjects\Android Developer Nanodegree\BuildItBigger\backend) is not equal to your 
 web application root (C:\Users\YF\Desktop\AndroidStudioProjects\Android Developer Nanodegree\BuildItBigger\backend\build\exploded-backend)
 You will not be able to access files from your working directory on the production server.
 
-2019-08-30 14:08:34.461:INFO:oejs.Server:main: jetty-9.4.18.v20190429; built: 2019-04-29T20:42:08.989Z; git: e1bc35120a6617ee3df052294e433f3a25ce7097; jvm 1.8.0_202-release-1483-b03
-2019-08-30 14:08:38.731:INFO:oejsh.ContextHandler:main: Started c.g.a.t.d.j.DevAppEngineWebAppContext@73eb439a{/,file:///C:/Users/YF/Desktop/AndroidStudioProjects/Android%20Developer%20Nanodegree/BuildItBigger/backend/build/exploded-backend/,AVAILABLE}{C:\Users\YF\Desktop\AndroidStudioProjects\Android Developer Nanodegree\BuildItBigger\backend\build\exploded-backend}
-2019-08-30 14:08:38.731:INFO:oejs.session:main: DefaultSessionIdManager workerName=node0
-2019-08-30 14:08:38.731:INFO:oejs.session:main: node0 Scavenging disabled
-2019-08-30 14:08:38.748:INFO:oejs.AbstractConnector:main: Started NetworkTrafficSelectChannelConnector@5abca1e0{HTTP/1.1,[http/1.1]}{localhost:8080}
-2019-08-30 14:08:38.748:INFO:oejs.Server:main: Started @9857ms
-Aug 30, 2019 9:08:38 PM com.google.appengine.tools.development.AbstractModule startup
+2019-08-30 15:08:09.485:INFO:oejs.Server:main: jetty-9.4.18.v20190429; built: 2019-04-29T20:42:08.989Z; git: e1bc35120a6617ee3df052294e433f3a25ce7097; jvm 1.8.0_202-release-1483-b03
+2019-08-30 15:08:10.100:INFO:oejsh.ContextHandler:main: Started c.g.a.t.d.j.DevAppEngineWebAppContext@73eb439a{/,file:///C:/Users/YF/Desktop/AndroidStudioProjects/Android%20Developer%20Nanodegree/BuildItBigger/backend/build/exploded-backend/,AVAILABLE}{C:\Users\YF\Desktop\AndroidStudioProjects\Android Developer Nanodegree\BuildItBigger\backend\build\exploded-backend}
+2019-08-30 15:08:10.101:INFO:oejs.session:main: DefaultSessionIdManager workerName=node0
+2019-08-30 15:08:10.101:INFO:oejs.session:main: node0 Scavenging disabled
+2019-08-30 15:08:10.115:INFO:oejs.AbstractConnector:main: Started NetworkTrafficSelectChannelConnector@5abca1e0{HTTP/1.1,[http/1.1]}{localhost:8080}
+2019-08-30 15:08:10.116:INFO:oejs.Server:main: Started @1361ms
+Aug 30, 2019 10:08:10 PM com.google.appengine.tools.development.AbstractModule startup
 INFO: Module instance default is running at http://localhost:8080/
-Aug 30, 2019 9:08:38 PM com.google.appengine.tools.development.AbstractModule startup
+Aug 30, 2019 10:08:10 PM com.google.appengine.tools.development.AbstractModule startup
 INFO: The admin console is running at http://localhost:8080/_ah/admin
-Aug 30, 2019 2:08:38 PM com.google.appengine.tools.development.DevAppServerImpl doStart
+Aug 30, 2019 3:08:10 PM com.google.appengine.tools.development.DevAppServerImpl doStart
 INFO: Dev App Server is now running

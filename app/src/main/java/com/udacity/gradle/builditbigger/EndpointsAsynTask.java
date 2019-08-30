@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.android.imageactivity.ImageActivity;
 import com.google.android.gms.ads.AdListener;
@@ -14,10 +15,9 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
     private static MyApi myApiService = null;
-    private Context context;
     private OnEventListener<String> mCallBack;
     private Exception mException;
 
@@ -25,8 +25,12 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
         mCallBack = callback;
     }
 
+    public EndpointsAsyncTask() {
+        // Empty constructor
+    }
+
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(Void... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -44,24 +48,23 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
             myApiService = builder.build();
         }
-        if(params != null && params.length != 0) {
-            context = params[0];
-        }
 
         try {
             return myApiService.getJokeFromEndPoint().execute().getData();
         } catch (IOException e) {
             mException = e;
+            return null;
         }
-        return null;
     }
 
     @Override
     protected void onPostExecute(final String result) {
         if(mCallBack != null) {
             if(mException == null) {
+                Log.v("AsyncTask", "Load success!!!");
                 mCallBack.onSuccess(result);
             } else {
+                Log.v("AsyncTask", "Load failed!!!");
                 mCallBack.onFailure(mException);
             }
         }

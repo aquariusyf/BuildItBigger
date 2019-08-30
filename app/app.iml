@@ -20,7 +20,7 @@
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/free/res;file://$MODULE_DIR$/build/generated/res/rs/free/debug;file://$MODULE_DIR$/build/generated/res/resValues/free/debug" />
-        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/build/generated/res/rs/androidTest/free/debug;file://$MODULE_DIR$/build/generated/res/resValues/androidTest/free/debug" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -179,10 +179,6 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-license:11.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-gass-license:11.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime:1.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="jokeDisplayActivity" />
-    <orderEntry type="module" module-name="javaJokes" />
-    <orderEntry type="module" module-name="jokeDisplayActivity" />
-    <orderEntry type="module" module-name="javaJokes" />
     <orderEntry type="module" module-name="jokeDisplayActivity" />
     <orderEntry type="module" module-name="javaJokes" />
   </component>

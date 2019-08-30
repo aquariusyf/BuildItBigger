@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.Assert.fail;
 import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
@@ -18,18 +19,26 @@ public class AsyncTaskTest {
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void testAsyncTask() {
-
-        final EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask() {
+    public void testAsyncTask() throws InterruptedException {
+        Log.v("TestModule", "Create AsyncTask");
+        EndpointsAsyncTask endpointsAsyncTask =
+                new EndpointsAsyncTask(new EndpointsAsyncTask.OnEventListener<String>() {
             @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
+            public void onSuccess(String result) {
                 assertNotNull(result);
-                Log.i("TestModule", result);
+                if(result != null) {
+                    Log.v("TestModule", result);
+                }
             }
-        };
-        endpointsAsyncTask.execute();
 
+            @Override
+            public void onFailure(Exception e) {
+                fail();
+            }
+        });
+        Log.v("TestModule", "Execute AsyncTask");
+        endpointsAsyncTask.execute();
+        Thread.sleep(20000);
     }
 
 }
