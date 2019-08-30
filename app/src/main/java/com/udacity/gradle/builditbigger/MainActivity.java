@@ -1,9 +1,9 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,17 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.android.imageactivity.ImageActivity;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String TEST_AD_ID = "ca-app-pub-3940256099942544/1033173712";
-    private static InterstitialAd mInterstitialAd;
     private static boolean sIsFree;
-
     private static ProgressBar mLoadingIndicator;
 
     @Override
@@ -31,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(getPackageName().equals("com.udacity.gradle.builditbigger.free")) {
             sIsFree = true;
-            initInterstitialAd();
         } else {
             sIsFree = false;
         }
@@ -70,17 +62,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(final String result) {
                 if(sIsFree) {
-                    mInterstitialAd.setAdListener(new AdListener(){
-                        @Override
-                        public void onAdClosed() {
-                            Intent intent = new Intent(MainActivity.this, ImageActivity.class);
-                            intent.putExtra(ImageActivity.JOKE_KEY, result);
-                            mLoadingIndicator.setVisibility(View.GONE);
-                            startActivity(intent);
-                            loadNewAd();
-                        }
-                    });
-                    mInterstitialAd.show();
+                    MainActivityFragment.adHelper.setInterAdListener(result, MainActivity.this);
+                    MainActivityFragment.adHelper.showInterAd();
+                    mLoadingIndicator.setVisibility(View.GONE);
                 } else {
                     Intent intent = new Intent(MainActivity.this, ImageActivity.class);
                     intent.putExtra(ImageActivity.JOKE_KEY, result);
@@ -99,15 +83,9 @@ public class MainActivity extends AppCompatActivity {
         asyncTask.execute();
     }
 
-    private void initInterstitialAd() {
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(TEST_AD_ID);
-        loadNewAd();
-    }
-
-    private static void loadNewAd() {
-        mInterstitialAd.loadAd(new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+    public interface AdHelper {
+        void setInterAdListener(String result, Context context);
+        void showInterAd();
     }
 
 }
